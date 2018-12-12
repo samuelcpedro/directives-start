@@ -1,9 +1,35 @@
-import { Directive, Renderer2, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Directive, Renderer2, OnInit, ElementRef, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
+
+  /**
+   *
+   * style.backgroundColor
+   * 1 - camel case is important here because we're accessing the DOM property
+   *       wich doesn't know dashes
+   *
+   */
+  @HostBinding('style.backgroundColor') backgroundColor = 'transparent';
+
+  /**
+   *
+   * Change style when mouse hoover and leave
+   * mouseover - method
+   * mouseenter - event support by the DOM Elements
+   *
+   */
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    // this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
+    this.backgroundColor = 'blue';
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+    this.backgroundColor = 'transparent';
+  }
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) { }
 
@@ -21,18 +47,4 @@ export class BetterHighlightDirective implements OnInit {
      */
   }
 
-  /**
-   *
-   * Change style when mouse hoover and leave
-   * mouseover - method
-   * mouseenter - event support by the DOM Elements
-   *
-   */
-  @HostListener('mouseenter') mouseover(eventData: Event) {
-    this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
-  }
-
-  @HostListener('mouseleave') mouseleave(eventData: Event) {
-    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-  }
 }
