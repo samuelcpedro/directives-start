@@ -5,11 +5,13 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+import { BetterHighlightDirective } from './better-highlight/better-highlight.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BasicHighlightDirective // informe new directive
+    BasicHighlightDirective, // informe new directive if done manualy
+    BetterHighlightDirective
   ],
   imports: [
     BrowserModule,
