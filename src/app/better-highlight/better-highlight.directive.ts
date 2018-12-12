@@ -1,4 +1,4 @@
-import { Directive, Renderer2, OnInit, ElementRef } from '@angular/core';
+import { Directive, Renderer2, OnInit, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
@@ -10,7 +10,7 @@ export class BetterHighlightDirective implements OnInit {
   ngOnInit(): void {
     // Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     // Add 'implements OnInit' to the class.
-    this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
+    // this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
     /**
      *
      * In the last lecture, we used the Angular Renderer class to change the style of a HTML element.
@@ -21,4 +21,18 @@ export class BetterHighlightDirective implements OnInit {
      */
   }
 
+  /**
+   *
+   * Change style when mouse hoover and leave
+   * mouseover - method
+   * mouseenter - event support by the DOM Elements
+   *
+   */
+  @HostListener('mouseenter') mouseover(eventData: Event) {
+    this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
+  }
+
+  @HostListener('mouseleave') mouseleave(eventData: Event) {
+    this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
+  }
 }
