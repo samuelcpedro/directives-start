@@ -18,7 +18,12 @@
       </ul>
       
       <p appBasicHighlight >Style me with basic directive!</p>
-      <p appBetterHighlight >Style me with better directive!</p>
+      <!-- <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">Style me with better directive!</p> -->
+      
+      <!-- This below is not working -->
+      <!-- <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Style me with better directive!</p> -->
+
+      <p appBetterHighlight defaultColor="yellow" [highlightColor]="'red'">Style me with better directive!</p>
 
       <ng-template [ngIf]="onlyOdd">
         <p>Only odd</p>

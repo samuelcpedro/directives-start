@@ -1,18 +1,27 @@
-import { Directive, Renderer2, OnInit, ElementRef, HostListener, HostBinding } from '@angular/core';
+import { Directive, Renderer2, OnInit, ElementRef, HostListener, HostBinding, Input } from '@angular/core';
 
 @Directive({
   selector: '[appBetterHighlight]'
 })
 export class BetterHighlightDirective implements OnInit {
 
+  @Input() defaultColor = 'transparent';
+  @Input() highlightColor = 'blue';
+
+  // tslint:disable-next-line:no-input-rename
+  // this below is not working
+  // @Input('BetterHighlightDirective') highlightColor = 'blue';
+
   /**
    *
    * style.backgroundColor
-   * 1 - camel case is important here because we're accessing the DOM property
-   *       wich doesn't know dashes
+   * camel case is important here because we're accessing the DOM property
+   *   wich doesn't know dashes
    *
    */
-  @HostBinding('style.backgroundColor') backgroundColor = 'transparent';
+  // In this way below it doens't initiate with the default color is necessary to put in ngOnInit
+  // @HostBinding('style.backgroundColor') backgroundColor = this.defaultColor;
+  @HostBinding('style.backgroundColor') backgroundColor;
 
   /**
    *
@@ -23,12 +32,12 @@ export class BetterHighlightDirective implements OnInit {
    */
   @HostListener('mouseenter') mouseover(eventData: Event) {
     // this.renderer.setStyle(this.elRef.nativeElement, 'backgroundColor', 'blue');
-    this.backgroundColor = 'blue';
+    this.backgroundColor = this.highlightColor;
   }
 
   @HostListener('mouseleave') mouseleave(eventData: Event) {
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
-    this.backgroundColor = 'transparent';
+    this.backgroundColor = this.defaultColor;
   }
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) { }
@@ -45,6 +54,8 @@ export class BetterHighlightDirective implements OnInit {
      * Learn more about the available Renderer methods here. https://angular.io/api/core/Renderer2
      *
      */
+
+    this.backgroundColor = this.defaultColor;
   }
 
 }
