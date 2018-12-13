@@ -15,11 +15,19 @@
             {{even}}
           </li>
         </div>
+        <ng-template>
+          <div [ngIf]="!onlyOdd">
+            <!-- {} indicates that we are binding a property on the ngClass -->
+            <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{'odd': even % 2 !== 0}" [ngStyle]="{'backgroundColor': even % 2 !== 0 ? 'yellow' : 'transparent'}">
+              {{even}}
+            </li>
+          </div>
+        </ng-template>
       </ul>
-      
-      <p appBasicHighlight >Style me with basic directive!</p>
+
+      <p appBasicHighlight>Style me with basic directive!</p>
       <!-- <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">Style me with better directive!</p> -->
-      
+
       <!-- This below is not working -->
       <!-- <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Style me with better directive!</p> -->
 
